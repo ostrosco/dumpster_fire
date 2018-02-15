@@ -44,14 +44,14 @@ class DumpsterFire:
 
             # Only attempt to start 7 fires.
             for i in range(7):
-                buffer[0, int(random.random() * (self.dumpster_width - 2))] = 65
+                buffer[0, int(random.random() * (self.dumpster_width - 3))] = 65
 
             for i in range(self.dumpster_height):
                 for j in range(self.dumpster_width - 3):
                     buffer[i, j] = (buffer[i, j] +
                                     buffer[i, j + 1] + 
-                                    buffer[i - 1, j + 1] +
-                                    buffer[i - 1, j - 1]) // 4
+                                    buffer[i - 1, j] +
+                                    buffer[i - 1, j + 1]) // 4
                 
                     color = 1
                     if buffer[i, j] > 15:
