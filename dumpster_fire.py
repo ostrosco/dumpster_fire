@@ -2,6 +2,7 @@ import curses
 import random
 import numpy as np
 import traceback
+from time import sleep
 
 class DumpsterFire:
     def __init__(self, dump_model):
@@ -48,10 +49,9 @@ class DumpsterFire:
             for i in range(self.dumpster_height):
                 for j in range(self.dumpster_width - 3):
                     buffer[i, j] = (buffer[i, j] +
-                                    buffer[i, j + 1] +
-                                    buffer[i, j - 1] +
+                                    buffer[i, j + 1] + 
                                     buffer[i - 1, j + 1] +
-                                    buffer[i - 1, j - 1]) // 5
+                                    buffer[i - 1, j - 1]) // 4
                 
                     color = 1
                     if buffer[i, j] > 15:
@@ -66,6 +66,7 @@ class DumpsterFire:
                                        chars[9 if buffer[i,j] > 9 else buffer[i, j]],
                                        curses.color_pair(color) | curses.A_BOLD)
 
+            sleep(0.016)
             self.screen.refresh()
             self.screen.timeout(30)
             if self.screen.getch() != -1:
