@@ -5,6 +5,7 @@ import traceback
 from time import sleep
 import sys
 
+
 class DumpsterFire:
     def __init__(self, dump_model):
         self.dump_model = dump_model
@@ -40,9 +41,12 @@ class DumpsterFire:
                 self.screen.addstr(
                     self.win_height - 1, i, "-", curses.color_pair(5))
                 self.screen.addstr(dumpster_top, i, "-", curses.color_pair(5))
-                self.screen.addstr(dumpster_top + self.dumpster_height // 2 - 2, i, "-", curses.color_pair(5))
-                self.screen.addstr(dumpster_top + self.dumpster_height // 2 + 2, i, "-", curses.color_pair(5))
-                self.screen.addstr(dumpster_top - 3, i + 3, "-", curses.color_pair(5))
+                self.screen.addstr(
+                    dumpster_top + self.dumpster_height // 2 - 2, i, "-", curses.color_pair(5))
+                self.screen.addstr(
+                    dumpster_top + self.dumpster_height // 2 + 2, i, "-", curses.color_pair(5))
+                self.screen.addstr(dumpster_top - 3, i + 3,
+                                   "-", curses.color_pair(5))
 
             for i in range(self.win_height - self.dumpster_height,
                            self.win_height):
@@ -51,22 +55,20 @@ class DumpsterFire:
 
             for i in range(self.win_height - self.dumpster_height,
                            self.win_height + 1):
-                self.screen.addstr(i - 3, width_end + 3, "|", curses.color_pair(5))
+                self.screen.addstr(i - 3, width_end + 3,
+                                   "|", curses.color_pair(5))
 
-
-
-            for i in range(1,3):
+            for i in range(1, 3):
                 self.screen.addstr(
-                        dumpster_top - i, 
-                        width_end + i,
-                        "/",
-                        curses.color_pair(5))
+                    dumpster_top - i,
+                    width_end + i,
+                    "/",
+                    curses.color_pair(5))
                 self.screen.addstr(
-                        dumpster_top + self.dumpster_height - i,
-                        width_end + i,
-                        "/",
-                        curses.color_pair(5))
-
+                    dumpster_top + self.dumpster_height - i,
+                    width_end + i,
+                    "/",
+                    curses.color_pair(5))
 
             model_start_x = width_start + \
                 (self.dumpster_width // 2) - len(self.dump_model) // 2
