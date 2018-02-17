@@ -51,9 +51,6 @@ class DumpsterFire:
         self.screen.clear()
 
     def render(self):
-        '''
-        Draws dumpsters and fire and stuff.
-        '''
         self.init_ncurses()
         chars = [" ", ".", ":", "^", "*", "x", "s", "S", "#", "$"]
         (width_start, width_end, dumpster_top) = self.calc_dumpster_dims()
