@@ -1,13 +1,23 @@
+'''
+Makes fires for you and me.
+'''
+
 import curses
 import random
-import numpy as np
 import traceback
 from time import sleep
 import sys
-
+import numpy as np
 
 class DumpsterFire:
+    '''
+    Here there be dumpsters.
+    '''
+
     def __init__(self, dump_model):
+        '''
+        Call the dumpster from the void and make it so.
+        '''
         self.dump_model = dump_model
         self.screen = curses.initscr()
         self.win_height = self.screen.getmaxyx()[0]
@@ -23,14 +33,23 @@ class DumpsterFire:
         curses.init_pair(4, 4, 0)
         curses.init_pair(5, 2, 0)
         self.screen.bkgd(' ', curses.color_pair(2))
-        self.screen.clear
+        self.screen.clear()
 
-    def render(self):
-        chars = [" ", ".", ":", "^", "*", "x", "s", "S", "#", "$"]
+    def calc_dumpster_dims(self):
+        '''
+        What size should the dumpster be? This should tell ya.
+        '''
         width_start = self.win_width // 2 - self.dumpster_width // 2
         width_end = self.win_width // 2 + self.dumpster_width // 2
         dumpster_top = self.win_height - self.dumpster_height
-        size = self.dumpster_width * self.dumpster_height
+        return (width_start, width_end, dumpster_top)
+
+    def render(self):
+        '''
+        Draws dumpsters and fire and stuff.
+        '''
+        chars = [" ", ".", ":", "^", "*", "x", "s", "S", "#", "$"]
+        (width_start, width_end, dumpster_top) = self.calc_dumpster_dims()
         buffer = np.zeros(
             (self.dumpster_height,
              self.dumpster_width),
@@ -115,12 +134,12 @@ class DumpsterFire:
 
 
 if __name__ == "__main__":
-    name = "My Life"
+    NAME = "My Life"
     if len(sys.argv) >= 2:
-        name = sys.argv[1]
-    dump = DumpsterFire(name)
+        NAME = sys.argv[1]
+    DUMP = DumpsterFire(NAME)
     try:
-        dump.render()
+        DUMP.render()
     except BaseException:
         curses.endwin()
         print(traceback.format_exc())
