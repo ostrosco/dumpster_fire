@@ -22,7 +22,6 @@ class DumpsterFire:
         self.screen = curses.initscr()
         self.win_width = self.screen.getmaxyx()[1]
         self.win_height = self.screen.getmaxyx()[0]
-        self.win_width = 100
         self.dumpster_height = 10
         self.dumpster_width = 50
 
