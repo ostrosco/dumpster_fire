@@ -20,10 +20,25 @@ class DumpsterFire:
         '''
         self.dump_model = dump_model
         self.screen = curses.initscr()
-        self.win_height = self.screen.getmaxyx()[0]
         self.win_width = self.screen.getmaxyx()[1]
+        self.win_height = self.screen.getmaxyx()[0]
+        self.win_width = 100
         self.dumpster_height = 10
         self.dumpster_width = 50
+
+    def calc_dumpster_dims(self):
+        '''
+        What size should the dumpster be? This should tell ya.
+        '''
+        width_start = self.win_width // 2 - self.dumpster_width // 2
+        width_end = self.win_width // 2 + self.dumpster_width // 2
+        dumpster_top = self.win_height - self.dumpster_height
+        return (width_start, width_end, dumpster_top)
+
+    def init_curses(self):
+        '''
+        Initialize curses.
+        '''
         curses.curs_set(0)
         curses.start_color()
         curses.init_color(0, 0, 0, 0)
@@ -35,19 +50,11 @@ class DumpsterFire:
         self.screen.bkgd(' ', curses.color_pair(2))
         self.screen.clear()
 
-    def calc_dumpster_dims(self):
-        '''
-        What size should the dumpster be? This should tell ya.
-        '''
-        width_start = self.win_width // 2 - self.dumpster_width // 2
-        width_end = self.win_width // 2 + self.dumpster_width // 2
-        dumpster_top = self.win_height - self.dumpster_height
-        return (width_start, width_end, dumpster_top)
-
     def render(self):
         '''
         Draws dumpsters and fire and stuff.
         '''
+        self.init_curses()
         chars = [" ", ".", ":", "^", "*", "x", "s", "S", "#", "$"]
         (width_start, width_end, dumpster_top) = self.calc_dumpster_dims()
         buffer = np.zeros(
