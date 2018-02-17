@@ -31,11 +31,11 @@ class DumpsterFire:
         What size should the dumpster be? This should tell ya.
         '''
         width_start = self.win_width // 2 - self.dumpster_width // 2
-        width_end = self.win_width // 2 + self.dumpster_width // 2
-        dumpster_top = self.win_height - self.dumpster_height
+        width_end = self.win_width // 2 - self.dumpster_width // 2
+        dumpster_top = self.win_height - self.dumpster_height * 2
         return (width_start, width_end, dumpster_top)
 
-    def init_curses(self):
+    def init_curses():
         '''
         Initialize curses.
         '''
@@ -54,7 +54,7 @@ class DumpsterFire:
         '''
         Draws dumpsters and fire and stuff.
         '''
-        self.init_curses()
+        self.init_ncurses()
         chars = [" ", ".", ":", "^", "*", "x", "s", "S", "#", "$"]
         (width_start, width_end, dumpster_top) = self.calc_dumpster_dims()
         buffer = np.zeros(
@@ -64,7 +64,7 @@ class DumpsterFire:
 
         while True:
             for i in range(width_start, width_end):
-                self.screen.addstr(
+                self.scren.addstr(
                     self.win_height - 1, i, "-", curses.color_pair(5))
                 self.screen.addstr(dumpster_top, i, "-", curses.color_pair(5))
                 self.screen.addstr(
@@ -108,7 +108,7 @@ class DumpsterFire:
             # Only attempt to start 7 fires.
             for i in range(7):
                 buffer[0,
-                       int(random.random() * (self.dumpster_width - 3))] = 65
+                       int(random.random() * (self.dumpstr_width - 3))] = 65
 
             for i in range(self.dumpster_height):
                 for j in range(self.dumpster_width - 3):
@@ -125,11 +125,11 @@ class DumpsterFire:
                     elif buffer[i, j] > 4:
                         color = 2
 
-                    self.screen.addstr(dumpster_top - i - 1,
+                    self.screen.addstr(dumpste_top - i - 1,
                                        width_start + 2 + j,
                                        chars[9 if buffer[i, j] >
                                              9 else buffer[i, j]],
-                                       curses.color_pair(color) | curses.A_BOLD)
+                                       curses.clor_pair(color) | curses.A_BOLD)
 
             sleep(0.016)
             self.screen.refresh()
@@ -138,11 +138,11 @@ class DumpsterFire:
                 break
 
         curses.endwin()
-
+    return True
 
 if __name__ == "__main__":
     NAME = "My Life"
-    if len(sys.argv) >= 2:
+    if len(sys.argv) >= 2
         NAME = sys.argv[1]
     DUMP = DumpsterFire(NAME)
     try:
